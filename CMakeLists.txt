@@ -1,7 +1,7 @@
 # Based on:
 # https://github.com/scikit-build/scikit-build-core/tree/main/docs/examples/getting_started/fortran
 
-cmake_minimum_required(VERSION 3.17.2...3.29)
+cmake_minimum_required(VERSION 3.20...3.29)
 project(${SKBUILD_PROJECT_NAME} LANGUAGES C Fortran)
 
 find_package(
@@ -16,6 +16,7 @@ execute_process(
   OUTPUT_VARIABLE F2PY_INCLUDE_DIR
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+cmake_path(SET F2PY_INCLUDE_DIR NORMALIZE ${F2PY_INCLUDE_DIR})
 add_library(fortranobject OBJECT "${F2PY_INCLUDE_DIR}/fortranobject.c")
 target_link_libraries(fortranobject PUBLIC Python::NumPy)
 target_include_directories(fortranobject PUBLIC "${F2PY_INCLUDE_DIR}")
